@@ -1,0 +1,208 @@
+<!doctype html> 
+
+
+<html> 
+
+<head> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Test Web App</title>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+
+<style>
+
+.dog-pic{
+	height:200px;
+	width:400px;
+    left:50%;
+}
+
+
+/*  --------- Browse and Drop Box  -------------   */
+
+.inputfile {
+display:none;
+}
+
+.inputfile + label {
+position: absolute;
+padding: 128px 256px;
+background-color: #FFFFFF;
+border:dashed 1px rgba(0,0,0,.3);
+border-radius: 6px;
+color:#C25608;
+}
+
+.inputfile + label:hover{
+    cursor: pointer;
+}
+
+
+/*  --------- Home Button  -------------   */
+
+/* Style the tab buttons */
+.button {
+    background-color: #555;
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 35%;
+
+}
+
+/* Change background color of buttons on hover */
+.button:hover {
+    background-color: #777;
+}
+
+
+
+
+/*  --------- Sign in Button  -------------   */
+
+.button-2 {
+    background-color: #555;
+    color: white;  
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 35%;
+}
+
+/* Change background color of buttons on hover */
+.button-2:hover {
+    background-color: #777;
+}
+
+
+
+/*  --------- Submit Button  ---------  */
+
+.form-submit {
+display:inline-block;
+padding: 16px 62px;
+background-color: #FFFFFF;
+border:solid 1px #C25608;
+border-radius: 6px;
+color:#C25608;
+margin-top:300px;
+margin-left: 530px;
+}
+
+.form-submit:hover {
+    background: #F2B411;
+    cursor: pointer;
+}
+
+.form-submit:active  {
+background-image: none;
+background-color:#E87722;
+color:#FFFFFF;
+}
+
+</style>
+
+
+<script>
+ // bind the on-change event for the input element (triggered when a file
+    // is chosen)
+    /*$(document).ready(function() {
+      $("#upload-file-input").on("change", uploadFile);
+    });*/
+
+    /**
+     * Upload the file sending it via Ajax at the Spring Boot server.
+     */
+    function uploadFile() {
+      $.ajax({
+        url: "/uploadFile",
+        type: "POST",
+        data: new FormData($("#upload-file-form")[0]),
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function () {
+          // Handle upload success
+          $("#upload-file-message").text("File succesfully uploaded");
+        },
+        error: function () {
+          // Handle upload error
+          $("#upload-file-message").text(
+              "File not uploaded (perhaps it's too much big)");
+        }
+      });
+    } // function uploadFile
+
+
+
+</script>
+
+
+</head>
+
+<!--.......Row 1 .....-->
+<div class="row" >
+      
+    <!--.......Column 1.....-->
+    <div class="col" style="display:flex; justify-content: left;">
+      <button class="button" >Home</button>
+    </div>
+ 
+    <!--.......Column 2.....-->
+    <div class="col" style="display:flex; justify-content: right;">
+      <button class="button-2" >Sign in</button>
+    </div>
+
+  </div>
+
+<!--.......Row 2 .....-->
+<div class="row"  >
+    <!--.......Column 1.....-->
+    <div class="col" style="display:flex; justify-content: center;">
+
+      <img src="dogo.jpg" alt="Dog Logo" class="dog-pic">
+     
+
+    </div>
+      
+ 
+</div>
+
+<!--.......Row 3 .....-->
+<div class="row" style="display:flex; justify-content: center;" >
+
+    <!--.......Column 1.....-->
+    <div class="col" style="display:flex; justify-content: center;">
+
+     <form method="POST" id="upload-file-form" enctype="multipart/form-data" action="/uploadFile">
+
+        <input type="file" name="uploadfile" id="upload-file-input" class="inputfile jumbotron dashdash" accept=".csv" />
+        <label for="upload-file-input">Click Here to Choose a File </label>
+        <input type="submit" value="Submit" class="form-submit" >
+
+      </form>
+
+    </div>
+</div>
+
+
+
+
+
+
+</html>
